@@ -1,0 +1,20 @@
+{
+  "name": "webblogproject",
+  "version": "1.0.0",
+  "description": "Web Blog Project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T-0n-1/web-blog-project.git"
+  },
+  "author": "Toni Mertanen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T-0n-1/web-blog-project/issues"
+  },
+  "homepage": "https://github.com/T-0n-1/web-blog-project#readme"
+}
