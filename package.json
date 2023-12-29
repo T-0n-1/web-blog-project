@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/T-0n-1/web-blog-project/issues"
   },
-  "homepage": "https://github.com/T-0n-1/web-blog-project#readme"
+  "homepage": "https://github.com/T-0n-1/web-blog-project#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
