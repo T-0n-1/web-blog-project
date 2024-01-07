@@ -9,27 +9,38 @@
 </head>
 <body>
 
-  
-    <nav class="navbar navbar-expand-md">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-              <i class="bi bi-mailbox-flag"></i>
-                Web Blog Post
-              </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-              <a class="nav-link" href="#">New post</a>
-              <a class="nav-link" href="#">Browse </a>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2 fs-6" type="search" placeholder="Search from posts" aria-label="Search">
-                <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
-              </form>
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <i class="fs-1 bi bi-mailbox-flag"></i>
+              <i class="display-4">Web Blog Post</i>
+            </a>
+            <form class="d-flex d-none d-md-flex" role="search">
+              <input class="form-control ms-3 me-2" type="search" placeholder="Search from posts" aria-label="Search">
+              <button class="btn btn-outline-success me-3" type="submit">Search</button>
+            </form>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Browse</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">New post</a>
+                </li>
+                <li class="nav-item">
+                  <form class="d-flex d-sm-flex d-md-none" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search from posts" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </form>
+                </li>
+              </ul>
             </div>
-          </div>
         </div>
       </nav>
     
