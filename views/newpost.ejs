@@ -3,7 +3,7 @@
 
     <div class="container my-5">
       <div class="row align-items-center">
-        <div class="col-12 col-md-6 d-flex justify-content-center">
+        <div class="col-12 col-md-6 d-none d-md-flex justify-content-center">
           <img
             class="img-fluid rounded-circle max-height-50"
             src="/images/logo2.png"
@@ -11,12 +11,14 @@
           />
         </div>
         <div class="p-3 col-12 col-md-6">
-          <p class="display-6 lead text-center text-md-start">
-            Welcome to simple web blog post application.
-          </p>
-          <p class="display-7 lead text-center text-md-start">
-            Write, read and edit web blog posts easily.
-          </p>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+            <textarea class="form-control custom-input-height" id="exampleFormControlTextarea1"></textarea>
+          </div>
         </div>
       </div>
     </div>
