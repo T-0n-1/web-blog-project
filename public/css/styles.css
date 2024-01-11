@@ -5,3 +5,8 @@
 .custom-input-height {
   height: 50vh; /* Adjust the height as needed */
 }
+
+.scrollable-text {
+  max-height: 100vh;
+  overflow-y: auto;
+}
