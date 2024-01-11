@@ -1,12 +1,17 @@
-.max-height-50 {
-  max-height: 50vh;
-}
-
 .custom-input-height {
   height: 50vh; /* Adjust the height as needed */
 }
 
-.scrollable-text {
-  max-height: 100vh;
-  overflow-y: auto;
+.max-height {
+  max-height: 85vh;
+  margin-top: 7em;
+  margin-bottom: 10em;
+  overflow-y: none;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+  #logo-image {
+    max-height: 50vh;
+  }
 }
