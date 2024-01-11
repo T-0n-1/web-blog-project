@@ -1,9 +1,9 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/navi.ejs") %>
 
-    <div class="container max-height">
-      <div class="row align-items-center">
-        <div class="col-12 col-md-6 d-none d-md-flex">
+    <div class="container-fluid max-height">
+      <div class="row align-items-start">
+        <div class="col-12 col-md-6 d-none d-md-flex align-items-start justify-content-center">
           <img
             class="img-fluid rounded-circle"
             src="/images/logo2.png"
@@ -11,7 +11,7 @@
           />
         </div>
         <form class="p-3 col-12 col-md-6" action="/submit" method="POST">
-          <div class="mb-3 overflow-auto">
+          <div class="mb-3 scrollable-text">
             <p class="display-6 lead text-center text-md-start">
               Write new blog post.
             </p>

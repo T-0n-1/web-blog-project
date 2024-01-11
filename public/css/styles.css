@@ -3,10 +3,14 @@
 }
 
 .max-height {
-  max-height: 85vh;
+  max-height: 70vh;
   margin-top: 7em;
-  margin-bottom: 10em;
+  margin-bottom: 23em;
   overflow-y: none;
+}
+
+.scrollable-text {
+  overflow-y: auto;
 }
 
 /* MEDIA QUERIES */
