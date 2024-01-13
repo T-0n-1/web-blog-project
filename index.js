@@ -19,8 +19,24 @@ app.post("/search", (req, res) => {
     res.render(__dirname + "/views/results.ejs")});
 
 app.post("/submit", (req, res) => {
+    req.body["date"] = getDate();
     console.log("Submitted data:", req.body);
     res.render(__dirname + "/views/newpost.ejs", {submittedText: "Post submitted"});
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}.`));
+
+
+function getDate() {
+    const isoString = new Date().toISOString();
+    const dateObject = new Date(isoString);
+  
+    const year = dateObject.getFullYear();
+    const month = `0${dateObject.getMonth() + 1}`.slice(-2); // Adding leading zero if needed
+    const day = `0${dateObject.getDate()}`.slice(-2); // Adding leading zero if needed
+    const hours = `0${dateObject.getHours()}`.slice(-2); // Adding leading zero if needed
+    const minutes = `0${dateObject.getMinutes()}`.slice(-2); // Adding leading zero if needed
+  
+    return `${year}-${month}-${day}-${hours}-${minutes}`;
+}
+
