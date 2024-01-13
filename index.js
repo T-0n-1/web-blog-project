@@ -1,3 +1,5 @@
+// server.js
+
 import express from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -26,7 +28,15 @@ app.get('/browse', async (req, res) => {
 
     // Extract id, date, and title from each post
     const postsList = postsArray.map(post => ({
-      title: post.title
+        id: post.id,
+        title: post.title,
+        content: post.content,
+        date: post.date,
+        time: post.time,
+        author: post.author,
+        email: post.email,
+        editable: post.editable,
+        views: post.views,
     }));
 
     res.render(path.join(__dirname, 'views/browse.ejs'), { postsList });
@@ -36,11 +46,37 @@ app.get('/browse', async (req, res) => {
   }
 });
 
+app.get('/getPostContent/:id', async (req, res) => {
+  const postId = parseInt(req.params.id);
+  try {
+    const postsData = await fs.readFile(postsFilePath, 'utf-8');
+    const postsArray = JSON.parse(postsData);
+
+    // Find the post by ID
+    const selectedPost = postsArray.find(post => post.id === postId);
+
+    if (selectedPost) {
+      // You can customize this to extract the content you want to send to the client
+      const postContent = {
+        title: selectedPost.title,
+        content: selectedPost.content,
+        // Add more fields as needed
+      };
+
+      res.json(postContent);
+    } else {
+      res.status(404).json({ error: 'Post not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 app.post('/search', (req, res) => res.render(path.join(__dirname, 'views/results.ejs')));
 
 app.post('/submit', async (req, res) => {
   req.body.date = getDate();
-  console.log('Submitted data:', req.body);
 
   try {
     // Read existing posts from the JSON file
@@ -52,20 +88,19 @@ app.post('/submit', async (req, res) => {
     const newId = lastId + 1;
 
     // Create a new post object with the generated ID
-const dateComponents = req.body.date.split('-');
+    const dateComponents = req.body.date.split('-');
 
-const newPost = {
-  id: newId,
-  date: dateComponents.slice(0, 3).reverse().join('.'),
-  time: dateComponents.slice(3).join(':'), 
-  title: req.body.title,
-  content: req.body.content,
-  author: req.body.author,
-  email: req.body.email ? req.body.email : 'none',
-  editable: req.body.editable ? req.body.editable : 'off',
-  views: 0
-};
-
+    const newPost = {
+      id: newId,
+      date: dateComponents.slice(0, 3).reverse().join('.'),
+      time: dateComponents.slice(3).join(':'),
+      title: req.body.title,
+      content: req.body.content,
+      author: req.body.author,
+      email: req.body.email ? req.body.email : 'none',
+      editable: req.body.editable ? req.body.editable : 'off',
+      views: 0,
+    };
 
     // Add the new post to the array
     postsArray.push(newPost);
