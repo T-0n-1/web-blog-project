@@ -41,8 +41,9 @@ app.post("/submit", (req, res) => {
           title: req.body.title,
           content: req.body.content,
           author: req.body.author,
-          email: req.body.email,
-          editable: req.body.editable ? req.body.editable : 'off'
+          email: req.body.email ? req.body.email : 'none',
+          editable: req.body.editable ? req.body.editable : 'off',
+          views: 0
         };
     
         // Add the new post to the array

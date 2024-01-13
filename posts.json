@@ -1,11 +1,11 @@
 [
   {
     "id": 1,
-    "date": "2024-01-13-19-06",
-    "title": "Example title",
-    "content": "Some lorem ipsun liirum laarum",
+    "date": "2024-01-13-19-14",
+    "title": "Example post title",
+    "content": "This is example content including lorem ipsun liirum laarum just for test purposes.",
     "author": "ToniM",
-    "email": "mertanent@gmail.com",
+    "email": "none",
     "editable": "off"
   }
 ]
