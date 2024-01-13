@@ -60,6 +60,12 @@ app.get('/getPostContent/:id', async (req, res) => {
       const postContent = {
         title: selectedPost.title,
         content: selectedPost.content,
+        author: selectedPost.author,
+        date: selectedPost.date,
+        time: selectedPost.time,
+        email: selectedPost.email,
+        editable: selectedPost.editable,
+        views: selectedPost.views
         // Add more fields as needed
       };
 
