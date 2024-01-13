@@ -20,7 +20,7 @@ app.post("/search", (req, res) => {
 
 app.post("/submit", (req, res) => {
     console.log("Submitted data:", req.body);
-    res.render(__dirname + "/views/newpost.ejs");
+    res.render(__dirname + "/views/newpost.ejs", {submittedText: "Post submitted"});
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}.`));

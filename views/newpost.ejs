@@ -12,9 +12,17 @@
         </div>
         <form class="p-3 col-12 col-md-6 scrollable-text" enctype="application/x-www-form-urlencoded" action="/submit" method="POST">
           <div class="mb-3">
-            <p class="display-6 lead text-center text-md-start">
-              Write new blog post.
-            </p>
+
+            <% if (locals.submittedText) { %>
+              <p class="display-6 lead text-center text-md-start">
+                <%= submittedText %>
+              </p>
+              <% } else { %>
+                <p class="display-6 lead text-center text-md-start">
+                  Write new blog post.
+                </p>                
+              <% } %>
+
             <label for="author" class="form-label">Your name</label>
             <input type="text" name="author" class="form-control" id="author" placeholder="Jorn Barger">
           </div>
@@ -31,8 +39,8 @@
             <textarea name="post" class="form-control custom-input-height" id="blogPost" placeholder="Write your blog post here."></textarea>
           </div>
           <div class="mb-3 form-check">
-            <input type="checkbox" name="editable" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Post editable afterwards</label>
+            <input type="checkbox" name="editable" class="form-check-input" id="checkboxEditable">
+            <label class="form-check-label" for="checkboxEditable">Post editable afterwards</label>
           </div>
           <button type="submit" class="btn btn-primary mb-4">Submit</button>
         </form>
