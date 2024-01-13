@@ -26,20 +26,22 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-light">
-          <h1 class="modal-title fs-5" id="postModalLabel"><%= post.title %></h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-3" id="postModalLabel"><strong><%= post.title %></strong></h1>
+          <span class="border border-info rounded-circle p-1"><%= post.views %></span><br>
+          <p class="bg-light p-1"><%= post.date %>&nbsp;&nbsp;<%= post.time %></p>
         </div>
         <div class="modal-body">
           <!-- Load post content dynamically here -->
           <%- include("partials/postContent.ejs", { post: post }) %>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-danger">Delete</button>
+          <button type="button" class="btn btn-outline-info">Edit</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 <% }) %>
 
 <%- include("partials/footer.ejs") %>
