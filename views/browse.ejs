@@ -13,8 +13,17 @@
         <div class="p-3 col-12 col-md-6">
           <div class="mb-3">
             <p class="display-6 lead text-center text-md-start">
-              Blogpost browser here
+              Browse blog posts
             </p>
+            <ul>
+              <% postsList.forEach(post => { %>
+                <li>
+                  <strong>Title:</strong> <%= post.title %>
+                  <strong>Date:</strong> <%= post.date %> 
+                  <strong>ID:</strong> <%= post.id %> 
+                </li>
+              <% }) %>
+            </ul> 
           </div>
         </div>
       </div>

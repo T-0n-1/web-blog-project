@@ -2,7 +2,7 @@ import express from "express";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
-import fs from "fs";
+import fs from 'fs/promises'; // Use fs.promises for async file operations
 import path from "path";
 
 const app = express();
@@ -13,11 +13,31 @@ const postsFilePath = path.join(__dirname, 'posts.json');
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.set('view engine', 'ejs');
+
 app.get("/", (req, res) => {res.render(__dirname + "/views/index.ejs")});
 app.get("/home", (req, res) => {res.render(__dirname + "/views/index.ejs")});
-app.get("/browse", (req, res) => {res.render(__dirname + "/views/browse.ejs")});
 app.get("/newpost", (req, res) => {res.render(__dirname + "/views/newpost.ejs")});
-
+app.get('/browse', async (req, res) => {
+    try {
+      // Use fs.promises.readFile for async file reading
+      const postsData = await fs.readFile(postsFilePath, 'utf-8');
+      const postsArray = JSON.parse(postsData);
+  
+      // Extract id, date, and title from each post
+      const postsList = postsArray.map(post => ({
+        id: post.id,
+        date: post.date,
+        title: post.title
+      }));
+  
+      res.render(path.join(__dirname, 'views/browse.ejs'), { postsList });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+    
 app.post("/search", (req, res) => {
     res.render(__dirname + "/views/results.ejs")});
 
