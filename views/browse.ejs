@@ -22,7 +22,7 @@
 </div>
 
 <% postsList.forEach(post => { %>
-  <div class="modal" id="postModal<%= post.id %>" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+  <div class="modal" id="postModal<%= post.id %>" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-light">
@@ -36,7 +36,9 @@
         </div>
         <div class="modal-footer bg-light">
           <button type="button" class="btn btn-outline-danger">Delete</button>
+          <% if (post.editable != 'off') { %>
           <button type="button" class="btn btn-outline-info">Edit</button>
+          <% } %>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
