@@ -26,8 +26,6 @@ app.get('/browse', async (req, res) => {
 
     // Extract id, date, and title from each post
     const postsList = postsArray.map(post => ({
-      id: post.id,
-      date: post.date,
       title: post.title
     }));
 

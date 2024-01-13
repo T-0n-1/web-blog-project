@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "id": 1,
+    "date": "13.01.2024",
+    "time": "22:16",
+    "title": "Demo title",
+    "content": "Lorem ipsun liirum laarum",
+    "author": "TestUser",
+    "email": "none",
+    "editable": "off",
+    "views": 0
+  },
+  {
+    "id": 2,
+    "date": "13.01.2024",
+    "time": "22:17",
+    "title": "Title",
+    "content": "Testing",
+    "author": "demoUser",
+    "email": "none",
+    "editable": "on",
+    "views": 0
+  },
+  {
+    "id": 3,
+    "date": "13.01.2024",
+    "time": "22:18",
+    "title": "Testing again",
+    "content": "blahblah",
+    "author": "ToniM",
+    "email": "none",
+    "editable": "on",
+    "views": 0
+  }
+]

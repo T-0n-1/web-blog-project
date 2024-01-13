@@ -1,32 +1,79 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/navi.ejs") %>
 
-    <div class="container max-height">
-      <div class="row align-items-center">
-        <div class="col-12 col-md-6 pe-5 d-none d-md-flex justify-content-center">
-          <img
-            class="img-fluid rounded-circle"
-            src="/images/logo3.png"
-            alt="logo image"
-          />
-        </div>
-        <div class="p-3 col-12 col-md-6">
-          <div class="mb-3">
-            <p class="display-6 lead text-center text-md-start">
-              Browse blog posts
-            </p>
-            <ul>
-              <% postsList.forEach(post => { %>
-                <li>
-                  <strong>Title:</strong> <%= post.title %>
-                  <strong>Date:</strong> <%= post.date %> 
-                  <strong>ID:</strong> <%= post.id %> 
-                </li>
-              <% }) %>
-            </ul> 
-          </div>
-        </div>
+<div class="container max-height">
+  <div class="row align-items-center">
+    <div class="col-12 col-md-6 pe-5 d-none d-md-flex justify-content-center">
+      <img class="img-fluid rounded-circle" src="/images/logo3.png" alt="logo image" />
+    </div>
+    <div class="p-3 col-12 col-md-6">
+      <div class="mb-3">
+        <p class="display-6 lead text-center text-md-start">Browse blog posts</p>
+        <ul>
+          <% postsList.forEach(post => { %>
+            <li class="btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal">
+              <strong><%= post.title %></strong>
+            </li>
+          <% }) %>
+        </ul>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="modal" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="postModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam corrupti libero delectus in iusto veniam excepturi,
+        maiores, eius consectetur obcaecati id totam exercitationem fuga reprehenderit recusandae eligendi nobis earum amet
+        ullam a consequatur quis. Incidunt laudantium aspernatur quia itaque minima deserunt temporibus, assumenda similique,
+        fugit esse et reprehenderit voluptates blanditiis.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque culpa aut sequi similique voluptates dolore iure magni
+        aliquam voluptatum! In tempore dolorem excepturi et reiciendis reprehenderit, perspiciatis a dolor atque similique ad
+        dicta nobis voluptatum aspernatur est, necessitatibus nostrum libero laboriosam labore? Nihil autem dignissimos
+        reiciendis nobis nemo blanditiis repudiandae quibusdam illum minima, eius ea sint tempore suscipit provident
+        architecto. Accusamus animi voluptates, est quos exercitationem rerum. Eos eius accusantium nam fugit sint ab,
+        assumenda veniam odit a consectetur dolorum impedit facere eligendi recusandae voluptatibus officia mollitia, cum
+        ducimus unde earum quaerat explicabo error, maiores neque. Rerum beatae sapiente veniam iure eveniet odit natus
+        voluptatum aspernatur voluptas, est recusandae necessitatibus voluptates eum. Quas unde, quidem omnis, quaerat vitae
+        commodi ut aliquam maiores reiciendis perferendis ipsa placeat obcaecati, fugit veritatis pariatur. Vero velit ullam
+        quos. Possimus est vitae, mollitia voluptates esse aliquid ea dolorum vel. Distinctio deleniti sit qui perferendis,
+        unde, nisi itaque rerum placeat expedita laborum accusantium soluta ut quaerat minima quisquam hic explicabo beatae
+        voluptate ipsum numquam animi maxime tempore reprehenderit voluptatibus. Omnis necessitatibus atque sunt fuga, aperiam
+        autem corrupti reiciendis saepe quaerat dicta, libero nobis consequuntur error consequatur enim tempore illo maiores
+        rem quisquam quae? Fugiat voluptatem atque dolorem consectetur illum optio et culpa quod odio quaerat. Inventore
+        architecto nulla sit hic iure eaque culpa temporibus a placeat quisquam nobis laborum ullam, ipsum quam ducimus
+        blanditiis rerum quibusdam cupiditate, totam eius illo? Libero quibusdam natus quas debitis amet neque ratione
+        laudantium pariatur culpa obcaecati esse, corrupti id labore aliquid dolores perspiciatis ad dolorum corporis illo
+        nesciunt autem? Architecto quia quibusdam necessitatibus distinctio, similique sint voluptatem amet laudantium tenetur
+        fugiat quod tempore, laborum iusto doloribus aut placeat? Ullam ad quidem et voluptatibus perspiciatis voluptas qui
+        quia eaque? Dolore dignissimos ratione in sapiente reiciendis, dolores voluptatem molestiae voluptate, fugit harum
+        alias inventore blanditiis laboriosam rem adipisci! Adipisci, error. Commodi delectus amet facere? Ratione ullam,
+        optio, architecto distinctio vitae molestiae sequi corporis reiciendis assumenda sapiente minima esse sint soluta
+        impedit ex dolores, alias enim voluptas corrupti ea. Sequi, quibusdam ipsam. Eum porro sapiente totam suscipit
+        accusamus beatae dolor quibusdam quidem officia modi, corporis iusto impedit earum nostrum! Quod, corporis aut animi
+        maxime nostrum corrupti, ea saepe cumque atque fugiat est laboriosam harum libero rem quos tempore, nesciunt nisi quia
+        asperiores eligendi ducimus sunt voluptatibus voluptate hic? Beatae perferendis asperiores, ipsa sint iure aperiam
+        nesciunt facere natus aut molestiae. Animi quaerat dolore voluptates perferendis eaque doloribus deleniti tenetur modi
+        eveniet exercitationem quo reprehenderit esse suscipit dolorum a error excepturi ipsum, nulla quae, aut laudantium
+        porro expedita. Minus facilis, velit repellat repellendus eos totam maiores possimus laboriosam quasi alias.
+        Praesentium, rerum alias ex laudantium perferendis maiores numquam quaerat atque officia fugiat. Voluptas maxime
+        corrupti doloremque. Enim ea amet dignissimos maxime cumque voluptatibus accusantium quod ab ullam consequuntur
+        asperiores deleniti, quasi tenetur quisquam ipsa consectetur neque totam nostrum molestiae perferendis voluptate,
+        laudantium, esse necessitatibus saepe. Aliquam repellat, iusto quaerat molestias perspiciatis vel enim in libero
+        doloribus quisquam voluptatibus impedit ut excepturi facere recusandae voluptatem!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%- include("partials/footer.ejs") %>
