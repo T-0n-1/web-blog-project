@@ -1,5 +1,4 @@
 // server.js
-
 import express from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -20,12 +19,12 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
 app.get('/home', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
 app.get('/newpost', (req, res) => res.render(path.join(__dirname, 'views/newpost.ejs')));
+
 app.get('/browse', async (req, res) => {
   try {
     // Use fs.promises.readFile for async file reading
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
-
     // Extract id, date, and title from each post
     const postsList = postsArray.map(post => ({
         id: post.id,
@@ -38,7 +37,6 @@ app.get('/browse', async (req, res) => {
         editable: post.editable,
         views: post.views,
     }));
-
     res.render(path.join(__dirname, 'views/browse.ejs'), { postsList });
   } catch (error) {
     console.error(error);
@@ -51,13 +49,12 @@ app.get('/getPostContent/:id', async (req, res) => {
   try {
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
-
     // Find the post by ID
     const selectedPost = postsArray.find(post => post.id === postId);
-
     if (selectedPost) {
       // You can customize this to extract the content you want to send to the client
       const postContent = {
+        id: selectedPost.id,
         title: selectedPost.title,
         content: selectedPost.content,
         author: selectedPost.author,
@@ -68,7 +65,6 @@ app.get('/getPostContent/:id', async (req, res) => {
         views: selectedPost.views
         // Add more fields as needed
       };
-
       res.json(postContent);
     } else {
       res.status(404).json({ error: 'Post not found' });
@@ -83,19 +79,15 @@ app.post('/search', (req, res) => res.render(path.join(__dirname, 'views/results
 
 app.post('/submit', async (req, res) => {
   req.body.date = getDate();
-
   try {
     // Read existing posts from the JSON file
     const existingPosts = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(existingPosts);
-
     // Generate a new ID for the submitted post
     const lastId = postsArray.length > 0 ? postsArray[postsArray.length - 1].id : 0;
     const newId = lastId + 1;
-
     // Create a new post object with the generated ID
     const dateComponents = req.body.date.split('-');
-
     const newPost = {
       id: newId,
       date: dateComponents.slice(0, 3).reverse().join('.'),
@@ -107,13 +99,10 @@ app.post('/submit', async (req, res) => {
       editable: req.body.editable ? req.body.editable : 'off',
       views: 0,
     };
-
     // Add the new post to the array
     postsArray.push(newPost);
-
     // Write the updated array back to the JSON file
     await fs.writeFile(postsFilePath, JSON.stringify(postsArray, null, 2));
-
     res.render(path.join(__dirname, 'views/newpost.ejs'), { submittedText: 'Post submitted' });
   } catch (error) {
     console.error(error);
@@ -127,15 +116,12 @@ app.delete('/deletePost/:id', async (req, res) => {
       // Read existing posts from the JSON file
       const postsData = await fs.readFile(postsFilePath, 'utf-8');
       const postsArray = JSON.parse(postsData);
-  
       // Filter out the post by ID
       const updatedPostsArray = postsArray.filter(post => post.id !== postId);
-  
       // Check if any post was removed
       if (updatedPostsArray.length < postsArray.length) {
         // Write the updated array back to the JSON file
         await fs.writeFile(postsFilePath, JSON.stringify(updatedPostsArray, null, 2));
-  
         // Send a success response
         res.json({ success: true });
       } else {
@@ -149,17 +135,26 @@ app.delete('/deletePost/:id', async (req, res) => {
     }
   });
 
+app.put('/updateViews/:id', async (req, res) => {
+    const postId = parseInt(req.params.id);
+    try {
+      const postsData = await fs.readFile(postsFilePath, 'utf-8');
+      const postsArray = JSON.parse(postsData);
+      // Find the post by ID
+      const selectedPost = postsArray.find(post => post.id === postId);
+      if (selectedPost) {
+        // Update the views count
+        selectedPost.views += 1;
+        // Write the updated array back to the JSON file
+        await fs.writeFile(postsFilePath, JSON.stringify(postsArray, null, 2));
+        res.sendStatus(200);
+      } else {
+        res.status(404).json({ error: 'Post not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 app.listen(port, () => console.log(`App listening on port ${port}.`));
-
-function getDate() {
-  const isoString = new Date().toISOString();
-  const dateObject = new Date(isoString);
-
-  const year = dateObject.getFullYear();
-  const month = `0${dateObject.getMonth() + 1}`.slice(-2);
-  const day = `0${dateObject.getDate()}`.slice(-2);
-  const hours = `0${dateObject.getHours()}`.slice(-2);
-  const minutes = `0${dateObject.getMinutes()}`.slice(-2);
-
-  return `${year}-${month}-${day}-${hours}-${minutes}`;
-}

@@ -11,7 +11,7 @@
         <p class="display-6 lead text-center text-md-start">Browse blog posts</p>
         <ul>
           <% postsList.forEach(post => { %>
-            <li class="btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>">
+            <li class="btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>">
               <strong><%= post.title %></strong>
             </li>
           <% }) %>
