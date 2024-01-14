@@ -121,6 +121,34 @@ app.post('/submit', async (req, res) => {
   }
 });
 
+app.delete('/deletePost/:id', async (req, res) => {
+    const postId = parseInt(req.params.id);
+    try {
+      // Read existing posts from the JSON file
+      const postsData = await fs.readFile(postsFilePath, 'utf-8');
+      const postsArray = JSON.parse(postsData);
+  
+      // Filter out the post by ID
+      const updatedPostsArray = postsArray.filter(post => post.id !== postId);
+  
+      // Check if any post was removed
+      if (updatedPostsArray.length < postsArray.length) {
+        // Write the updated array back to the JSON file
+        await fs.writeFile(postsFilePath, JSON.stringify(updatedPostsArray, null, 2));
+  
+        // Send a success response
+        res.json({ success: true });
+      } else {
+        // Send a failure response if the post is not found
+        res.status(404).json({ success: false, error: 'Post not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      // Send a failure response for any other errors
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+  });
+
 app.listen(port, () => console.log(`App listening on port ${port}.`));
 
 function getDate() {

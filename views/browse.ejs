@@ -35,7 +35,7 @@
           <%- include("partials/postContent.ejs", { post: post }) %>
         </div>
         <div class="modal-footer bg-light">
-          <button type="button" class="btn btn-outline-danger">Delete</button>
+          <button type="button" class="btn btn-outline-danger" id="deleteButton" onclick="deletePost(<%= post.id %>)" data-bs-dismiss="modal">Delete</button>
           <% if (post.editable != 'off') { %>
           <button type="button" class="btn btn-outline-info">Edit</button>
           <% } %>
