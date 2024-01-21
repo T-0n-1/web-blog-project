@@ -37,7 +37,7 @@
         <div class="modal-footer bg-light">
           <button type="button" class="btn btn-outline-danger" id="deleteButton" onclick="deletePost(<%= post.id %>)" data-bs-dismiss="modal">Delete</button>
           <% if (post.editable != 'off') { %>
-          <button type="button" class="btn btn-outline-info">Edit</button>
+          <button type="button" class="btn btn-outline-info btn-edit">Edit</button>
           <% } %>
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
         </div>
