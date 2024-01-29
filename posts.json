@@ -8,7 +8,7 @@
     "author": "Lorem",
     "email": "none",
     "editable": "off",
-    "views": 19
+    "views": 20
   },
   {
     "id": 6,
@@ -19,6 +19,6 @@
     "author": "John Doe",
     "email": "youllnever@know.com",
     "editable": "on",
-    "views": 5
+    "views": 8
   }
 ]
