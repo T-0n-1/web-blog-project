@@ -54,3 +54,34 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+
+function editPost(postId) {
+  const editContent = document.getElementById('editContent').value;
+  const editAuthor = document.getElementById('editAuthor').value;
+  const editCheckbox = document.getElementById('editCheckbox').checked;
+
+  // Make a fetch request to your server to update the post
+  fetch(`/editPost/${postId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      content: editContent,
+      author: editAuthor,
+      editable: editCheckbox ? 'on' : 'off',
+    }),
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Failed to edit post: ${response.statusText}`);
+    }
+
+    // Optionally, you can reload the page or update the post content dynamically
+    location.reload(); // Reload the page for simplicity
+  })
+  .catch(error => {
+    console.error(error);
+    // Handle errors as needed
+  });
+}
