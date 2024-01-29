@@ -32,7 +32,13 @@
         </div>
         <div class="modal-body">
           <!-- Load post content dynamically here -->
-          <%- include("partials/postContent.ejs", { post: post }) %>
+          <p class="display-10 lead"><%= post.content %></p>
+          <p class="py-0 my-0 text-end">
+          <%= post.author %><br>
+          <% if (post.email != 'none') { %>
+          <%= post.email %>
+          <% } %>
+          </p>
         </div>
         <div class="modal-footer bg-light">
           <button type="button" class="btn btn-outline-danger" id="deleteButton" onclick="deletePost(<%= post.id %>)" data-bs-dismiss="modal">Delete</button>
