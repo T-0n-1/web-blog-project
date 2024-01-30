@@ -12,6 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const postsFilePath = path.join(__dirname, 'posts.json');
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
@@ -156,6 +157,37 @@ app.put('/updateViews/:id', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
+
+// Assuming you have a route like this in your server.js file
+app.put('/editPost/:id', async (req, res) => {
+  const postId = parseInt(req.params.id);
+  console.log(req.body);
+  const { content, author, editable } = req.body;
+
+  try {
+    const postsData = await fs.readFile(postsFilePath, 'utf-8');
+    const postsArray = JSON.parse(postsData);
+
+    const editedPostIndex = postsArray.findIndex(post => post.id === postId);
+
+    if (editedPostIndex !== -1) {
+      // Update the post data
+      postsArray[editedPostIndex].content = content;
+      postsArray[editedPostIndex].author = `${postsArray[editedPostIndex].author} (edited by ${author})`;
+      postsArray[editedPostIndex].editable = editable;
+
+      // Write the updated array back to the JSON file
+      await fs.writeFile(postsFilePath, JSON.stringify(postsArray, null, 2));
+
+      res.status(200).json({ message: 'Post edited successfully' });
+    } else {
+      res.status(404).json({ error: 'Post not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
   
 app.listen(port, () => console.log(`App listening on port ${port}.`));
 

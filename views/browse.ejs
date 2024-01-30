@@ -50,9 +50,7 @@
       </div>
     </div>
   </div> 
-<% }) %>
 
-<% postsList.forEach(post => { %>
   <div class="modal" id="editModal<%= post.id %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
       <div class="modal-content">
@@ -63,20 +61,20 @@
         </div>
         <div class="modal-body">
           <!-- Load post content dynamically here -->
-          <form id="editPostForm" onsubmit="editPost(<%= post.id %>); return false;">
+          <form id="editPostForm<%= post.id %>" onsubmit="editPost(<%= post.id %>); return false;">
             <div class="mb-3">
-              <label for="editContent" class="form-label">Edit Content</label>
-              <textarea class="form-control" id="editContent" name="content" rows="3"><%= post.content %></textarea>
+              <label for="editContent<%= post.id %>" class="form-label">Edit Content</label>
+              <textarea class="form-control" id="editContent<%= post.id %>" name="content" rows="3"><%= post.content %></textarea>
             </div>
             <div class="mb-3">
-              <label for="editAuthor" class="form-label">Your Name</label>
-              <input type="text" class="form-control" id="editAuthor" name="author" value="<%= post.author %>" required>
+              <label for="editAuthor<%= post.id %>" class="form-label">Your Name</label>
+              <input type="text" class="form-control" id="editAuthor<%= post.id %>" name="author" value="<%= post.author %>" required>
             </div>
             <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="editCheckbox" name="editable" <% if (post.editable !== 'off') { %>checked<% } %>>
-              <label class="form-check-label" for="editCheckbox">Post editable afterwards</label>
+              <input type="checkbox" class="form-check-input" id="editCheckbox<%= post.id %>" name="editable" <% if (post.editable !== 'off') { %>checked<% } %>>
+              <label class="form-check-label" for="editCheckbox<%= post.id %>">Post editable afterwards</label>
             </div>
-            <button type="submit" class="btn btn-primary" onclick="editPost(<%= post.id %>)">Save</button>
+            <button type="button" class="btn btn-primary" onclick="editPost(<%= post.id %>)">Save</button>
           </form>
         </div>
         <div class="modal-footer bg-light">
@@ -84,8 +82,8 @@
         </div>
       </div>
     </div>
-  </div> 
-<% }) %>
+  </div>
 
+<% }) %>
 
 <%- include("partials/footer.ejs") %>

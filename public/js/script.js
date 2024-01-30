@@ -56,9 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function editPost(postId) {
-  const editContent = document.getElementById('editContent').value;
-  const editAuthor = document.getElementById('editAuthor').value;
-  const editCheckbox = document.getElementById('editCheckbox').checked;
+  const editContent = document.getElementById(`editContent${postId}`).value;
+  const editAuthor = document.getElementById(`editAuthor${postId}`).value;
+  const editCheckbox = document.getElementById(`editCheckbox${postId}`).checked;
 
   // Make a fetch request to your server to update the post
   fetch(`/editPost/${postId}`, {
