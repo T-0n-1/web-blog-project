@@ -7,14 +7,17 @@
     <p>No results found.</p>
   <% } else { %>
     <% results.forEach(result => { %>
-      <div class="card my-3">
-        <div class="card-body">
-          <h5 class="card-title"><%= result.title %></h5>
-          <p class="card-text">
-            <strong>Hits:</strong> <%= result.hits.join(', ') %><br>
-            <strong>Misses:</strong> <%= result.misses.join(', ') %>
-          </p>
-        </div>
+      <div>
+        <h2><%= result.title %></h2>
+        <p>Hit Count: <%= result.hitCount %></p>
+        
+        <% if (result.hitsCount !== 0) { %>
+          <p>Words found in post: <%= result.hits.join(', ') %></p>
+        <% } %>
+
+        <% if (result.missesCount !== 0) { %>
+          <p>Words not found in post: <%= result.misses.join(', ') %></p>
+        <% } %>
       </div>
     <% }) %>
   <% } %>
