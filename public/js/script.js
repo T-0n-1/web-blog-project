@@ -96,9 +96,16 @@ document.getElementById('searchForm').addEventListener('submit', function (event
     },
     body: JSON.stringify({ userInput }),
   })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data); // Handle the response from the server as needed
-    })
-    .catch(error => console.log(error));
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Handle the data on the client side
+    console.log(data);
+    // You can update the DOM or perform other actions here
+  })
+  .catch(error => console.error(error));
 });

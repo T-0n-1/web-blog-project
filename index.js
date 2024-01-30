@@ -20,6 +20,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
 app.get('/home', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
 app.get('/newpost', (req, res) => res.render(path.join(__dirname, 'views/newpost.ejs')));
+app.get('/search', (req, res) => res.render('results.ejs', { results: [] })); // Pass an empty array initially
 
 app.get('/browse', async (req, res) => {
   try {
@@ -98,7 +99,6 @@ app.post('/search', async (req, res) => {
         .concat(post.author.split(regexPattern)
           .filter(word => word.trim() !== '')
           .map(word => word.toLowerCase()));
-
       const hits = [];
       const misses = searchWords.filter(word => {
         const foundOccurrences = words.filter(w => w === word).length;
@@ -110,9 +110,7 @@ app.post('/search', async (req, res) => {
         }
         return foundOccurrences === 0;
       });
-
       const noDuplicateHits = [...new Set(hits)];
-
       return {
         id: post.id,
         title: post.title,
@@ -124,7 +122,9 @@ app.post('/search', async (req, res) => {
     });
     // Sort results by the number of hits (descending order)
     results.sort((a, b) => b.hitsCount - a.hitsCount);
-    res.json({ results });
+    console.log(results);
+    // res.json({ results });
+    res.render(path.join(__dirname, 'views/results.ejs'), { results }); //THIS ISN'T WORKING
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

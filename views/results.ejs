@@ -3,18 +3,13 @@
 
 <div class="container">
   <h1>Search Results</h1>
-  <% if (results.length === 0) { %>
+  <% if (results.hitsCount === 0) { %>
     <p>No results found.</p>
   <% } else { %>
     <% results.forEach(result => { %>
       <div>
         <h2><%= result.title %></h2>
-        <p>Hit Count: <%= result.hitCount %></p>
-        
-        <% if (result.hitsCount !== 0) { %>
-          <p>Words found in post: <%= result.hits.join(', ') %></p>
-        <% } %>
-
+        <p>Words found in post: <%= result.hits.join(', ') %></p>
         <% if (result.missesCount !== 0) { %>
           <p>Words not found in post: <%= result.misses.join(', ') %></p>
         <% } %>
