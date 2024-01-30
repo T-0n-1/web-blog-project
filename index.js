@@ -89,26 +89,31 @@ app.post('/search', async (req, res) => {
     // Calculate hits per post
     const results = postsArray.map(post => {
       const words = []
-          .concat(post.title.split(regexPattern)
-                .filter(word => word.trim() !== '')
-                .map(word => word.toLowerCase()))
-          .concat(post.content.split(regexPattern)
-                .filter(word => word.trim() !== '')
-                .map(word => word.toLowerCase()))
-          .concat(post.author.split(regexPattern)
-                .filter(word => word.trim() !== '')
-                .map(word => word.toLowerCase()));
-      const hits = searchWords.filter(word => words.includes(word));
-      console.log(hits);
-      const misses = searchWords.filter(word => !words.includes(word));
-      console.log(misses);
+        .concat(post.title.split(regexPattern)
+          .filter(word => word.trim() !== '')
+          .map(word => word.toLowerCase()))
+        .concat(post.content.split(regexPattern)
+          .filter(word => word.trim() !== '')
+          .map(word => word.toLowerCase()))
+        .concat(post.author.split(regexPattern)
+          .filter(word => word.trim() !== '')
+          .map(word => word.toLowerCase()));
+      let hitsCount = 0;
+      const misses = searchWords.filter(word => {
+        const found = words.includes(word);
+        if (found) {
+          hitsCount++;
+        }
+        return !found;
+      });    
       return {
         id: post.id,
         title: post.title,
-        hits: hits,
+        hits: hitsCount,
         misses: misses,
       };
     });
+    
     // Sort results by the number of hits (descending order)
     results.sort((a, b) => b.hits.length - a.hits.length);
     res.json({ results });
