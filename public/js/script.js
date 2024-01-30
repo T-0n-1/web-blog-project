@@ -100,5 +100,5 @@ document.getElementById('searchForm').addEventListener('submit', function (event
     .then(data => {
       console.log(data); // Handle the response from the server as needed
     })
-    .catch(error => console.error(error));
+    .catch(error => console.log(error));
 });

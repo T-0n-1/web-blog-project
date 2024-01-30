@@ -83,25 +83,23 @@ app.post('/search', async (req, res) => {
     const searchWords = userInput.split(regexPattern)
                         .filter(word => word.trim() !== '')
                         .map(word => word.toLowerCase());
-
     // Read posts from JSON file
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
-
     // Calculate hits per post
     const results = postsArray.map(post => {
-      const words = post.title.split(regexPattern)
-                              .filter(word => word.trim() !== '')
-                              .map(word => word.toLowerCase()) +
-                    post.content.split(regexPattern)
-                                .filter(word => word.trim() !== '')
-                                .map(word => word.toLowerCase()) +
-                    post.author.split(regexPattern)
-                               .filter(word => word.trim() !== '')
-                               .map(word => word.toLowerCase());
+      const words = []
+          .concat(post.title.split(regexPattern)
+                .filter(word => word.trim() !== '')
+                .map(word => word.toLowerCase()))
+          .concat(post.content.split(regexPattern)
+                .filter(word => word.trim() !== '')
+                .map(word => word.toLowerCase()))
+          .concat(post.author.split(regexPattern)
+                .filter(word => word.trim() !== '')
+                .map(word => word.toLowerCase()));
       const hits = searchWords.filter(word => words.includes(word));
       const misses = searchWords.filter(word => !words.includes(word));
-
       return {
         id: post.id,
         title: post.title,
@@ -112,6 +110,7 @@ app.post('/search', async (req, res) => {
 
     // Sort results by the number of hits (descending order)
     results.sort((a, b) => b.hits.length - a.hits.length);
+    res.json({ results });
     res.render(path.join(__dirname, 'views/results.ejs'), { results });
   } catch (error) {
     console.error(error);
