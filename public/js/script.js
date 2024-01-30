@@ -76,7 +76,6 @@ function editPost(postId) {
     if (!response.ok) {
       throw new Error(`Failed to edit post: ${response.statusText}`);
     }
-
     // Optionally, you can reload the page or update the post content dynamically
     location.reload(); // Reload the page for simplicity
   })
@@ -85,3 +84,21 @@ function editPost(postId) {
     // Handle errors as needed
   });
 }
+
+document.getElementById('searchForm').addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent the default form submission behavior
+  const userInput = document.getElementById('searchInput').value;
+  // Send the input to the server using fetch
+  fetch('/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userInput }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data); // Handle the response from the server as needed
+    })
+    .catch(error => console.error(error));
+});

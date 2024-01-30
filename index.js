@@ -76,7 +76,48 @@ app.get('/getPostContent/:id', async (req, res) => {
   }
 });
 
-app.post('/search', (req, res) => res.render(path.join(__dirname, 'views/results.ejs')));
+app.post('/search', async (req, res) => {
+  try {
+    const userInput = req.body.userInput;
+    const regexPattern = /[\s,]+/;
+    const searchWords = userInput.split(regexPattern)
+                        .filter(word => word.trim() !== '')
+                        .map(word => word.toLowerCase());
+
+    // Read posts from JSON file
+    const postsData = await fs.readFile(postsFilePath, 'utf-8');
+    const postsArray = JSON.parse(postsData);
+
+    // Calculate hits per post
+    const results = postsArray.map(post => {
+      const words = post.title.split(regexPattern)
+                              .filter(word => word.trim() !== '')
+                              .map(word => word.toLowerCase()) +
+                    post.content.split(regexPattern)
+                                .filter(word => word.trim() !== '')
+                                .map(word => word.toLowerCase()) +
+                    post.author.split(regexPattern)
+                               .filter(word => word.trim() !== '')
+                               .map(word => word.toLowerCase());
+      const hits = searchWords.filter(word => words.includes(word));
+      const misses = searchWords.filter(word => !words.includes(word));
+
+      return {
+        id: post.id,
+        title: post.title,
+        hits: hits,
+        misses: misses,
+      };
+    });
+
+    // Sort results by the number of hits (descending order)
+    results.sort((a, b) => b.hits.length - a.hits.length);
+    res.render(path.join(__dirname, 'views/results.ejs'), { results });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 app.post('/submit', async (req, res) => {
   req.body.date = getDate();
@@ -161,7 +202,6 @@ app.put('/updateViews/:id', async (req, res) => {
 // Assuming you have a route like this in your server.js file
 app.put('/editPost/:id', async (req, res) => {
   const postId = parseInt(req.params.id);
-  console.log(req.body);
   const { content, author, editable } = req.body;
 
   try {

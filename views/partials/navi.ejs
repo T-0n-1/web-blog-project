@@ -4,10 +4,12 @@
         <i class="fs-1 bi bi-mailbox-flag"></i>
         <i class="display-4">Web Blog Post</i>
       </a>
-      <form class="d-flex d-none d-md-flex" role="search" action="/search" method="POST">
+      <form class="d-flex d-none d-md-flex" id="searchForm" role="search" action="/search" method="POST">
         <input
           class="form-control ms-3 me-2"
-          type="search"
+          type="text"
+          id="searchInput"
+          name="userInput"
           placeholder="Search from posts"
           aria-label="Search"
         />
