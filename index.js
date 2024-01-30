@@ -99,7 +99,9 @@ app.post('/search', async (req, res) => {
                 .filter(word => word.trim() !== '')
                 .map(word => word.toLowerCase()));
       const hits = searchWords.filter(word => words.includes(word));
+      console.log(hits);
       const misses = searchWords.filter(word => !words.includes(word));
+      console.log(misses);
       return {
         id: post.id,
         title: post.title,
@@ -107,11 +109,9 @@ app.post('/search', async (req, res) => {
         misses: misses,
       };
     });
-
     // Sort results by the number of hits (descending order)
     results.sort((a, b) => b.hits.length - a.hits.length);
     res.json({ results });
-    res.render(path.join(__dirname, 'views/results.ejs'), { results });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -202,22 +202,17 @@ app.put('/updateViews/:id', async (req, res) => {
 app.put('/editPost/:id', async (req, res) => {
   const postId = parseInt(req.params.id);
   const { content, author, editable } = req.body;
-
   try {
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
-
     const editedPostIndex = postsArray.findIndex(post => post.id === postId);
-
     if (editedPostIndex !== -1) {
       // Update the post data
       postsArray[editedPostIndex].content = content;
       postsArray[editedPostIndex].author = `${postsArray[editedPostIndex].author} (edited by ${author})`;
       postsArray[editedPostIndex].editable = editable;
-
       // Write the updated array back to the JSON file
       await fs.writeFile(postsFilePath, JSON.stringify(postsArray, null, 2));
-
       res.status(200).json({ message: 'Post edited successfully' });
     } else {
       res.status(404).json({ error: 'Post not found' });
