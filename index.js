@@ -98,24 +98,25 @@ app.post('/search', async (req, res) => {
         .concat(post.author.split(regexPattern)
           .filter(word => word.trim() !== '')
           .map(word => word.toLowerCase()));
-      let hitsCount = 0;
+      const hits = [];
       const misses = searchWords.filter(word => {
-        const found = words.includes(word);
+        const lowerWord = word.toLowerCase();
+        const found = words.includes(lowerWord);
         if (found) {
-          hitsCount++;
+          hits.push(lowerWord);
         }
         return !found;
-      });    
+      });
       return {
         id: post.id,
         title: post.title,
-        hits: hitsCount,
+        hitCount: hits.length,
+        hits: hits,
         misses: misses,
       };
     });
-    
     // Sort results by the number of hits (descending order)
-    results.sort((a, b) => b.hits.length - a.hits.length);
+    results.sort((a, b) => b.hitCount - a.hitCount);
     res.json({ results });
   } catch (error) {
     console.error(error);
