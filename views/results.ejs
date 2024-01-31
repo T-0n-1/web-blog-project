@@ -1,9 +1,9 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/navi.ejs") %>
 
-<div class="container">
+<div class="container mt-5">
   <h1>Search Results</h1>
-  <% if (results.hitsCount === 0) { %>
+  <% if (results === [] ) { %>
     <p>No results found.</p>
   <% } else { %>
     <% results.forEach(result => { %>

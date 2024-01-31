@@ -8,7 +8,7 @@
     "author": "Lorem",
     "email": "none",
     "editable": "off",
-    "views": 30
+    "views": 31
   },
   {
     "id": 6,
@@ -19,6 +19,6 @@
     "author": "John Doe (edited by ToniM) (edited by John Doe)",
     "email": "youllnever@know.com",
     "editable": "on",
-    "views": 28
+    "views": 29
   }
 ]

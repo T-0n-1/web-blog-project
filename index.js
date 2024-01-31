@@ -134,9 +134,7 @@ app.post('/search', async (req, res) => {
     // Sort results by the number of hits (descending order)
     results.sort((a, b) => b.hitsCount - a.hitsCount);
     console.log(results);
-    // res.json({ results });
     res.render(path.join(__dirname, 'views/results.ejs'), { results });
-    // res.render(path.join(__dirname, 'views/results.ejs'));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
