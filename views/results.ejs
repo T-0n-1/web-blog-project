@@ -3,12 +3,12 @@
 
 <div class="container mt-5">
   <h1>Search Results</h1>
-  <% if (results === [] ) { %>
+  <% if ( results.every(result => result.hitsCount === 0) ) { %>
     <p>No results found.</p>
   <% } else { %>
     <% results.forEach(result => { %>
       <div>
-        <h2><%= result.title %></h2>
+        <p class="m-0 p-0 display-11"><strong>Post title:&nbsp;<%= result.title %></strong></p>
         <p>Words found in post: <%= result.hits.join(', ') %></p>
         <% if (result.missesCount !== 0) { %>
           <p>Words not found in post: <%= result.misses.join(', ') %></p>

@@ -29,12 +29,10 @@ async function deletePost(id) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-  const postTitles = document.querySelectorAll('[data-bs-toggle="modal"]');
-  
+  const postTitles = document.querySelectorAll('[data-bs-toggle="modal"]');  
   postTitles.forEach(title => {
     title.addEventListener('click', async function () {
       const postId = this.getAttribute('data-post-id');
-
       try {
         // Send a request to the server to increment the views count in the JSON file
         const response = await fetch(`/updateViews/${postId}`, {
@@ -43,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
             'Content-Type': 'application/json',
           },
         });
-
         if (!response.ok) {
           throw new Error(`Failed to increment views: ${response.statusText}`);
         }
@@ -59,7 +56,6 @@ function editPost(postId) {
   const editContent = document.getElementById(`editContent${postId}`).value;
   const editAuthor = document.getElementById(`editAuthor${postId}`).value;
   const editCheckbox = document.getElementById(`editCheckbox${postId}`).checked;
-
   // Make a fetch request to your server to update the post
   fetch(`/editPost/${postId}`, {
     method: 'PUT',
