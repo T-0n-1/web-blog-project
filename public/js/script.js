@@ -83,29 +83,4 @@ function editPost(postId) {
     console.error(error);
     // Handle errors as needed
   });
-}
-
-document.getElementById('searchForm').addEventListener('submit', function (event) {
-  event.preventDefault(); // Prevent the default form submission behavior
-  const userInput = document.getElementById('searchInput').value;
-  // Send the input to the server using fetch
-  fetch('/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userInput }),
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.statusText}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Handle the data on the client side
-    console.log(data);
-    // You can update the DOM or perform other actions here
-  })
-  .catch(error => console.error(error));
-});
+};

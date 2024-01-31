@@ -15,6 +15,17 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// ... (your existing code)
+
+// Add a custom error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
+// ... (the rest of your Express setup)
+
+
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
@@ -124,7 +135,8 @@ app.post('/search', async (req, res) => {
     results.sort((a, b) => b.hitsCount - a.hitsCount);
     console.log(results);
     // res.json({ results });
-    res.render(path.join(__dirname, 'views/results.ejs'), { results }); //THIS ISN'T WORKING
+    res.render(path.join(__dirname, 'views/results.ejs'), { results });
+    // res.render(path.join(__dirname, 'views/results.ejs'));
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -211,7 +223,6 @@ app.put('/updateViews/:id', async (req, res) => {
     }
   });
 
-// Assuming you have a route like this in your server.js file
 app.put('/editPost/:id', async (req, res) => {
   const postId = parseInt(req.params.id);
   const { content, author, editable } = req.body;
