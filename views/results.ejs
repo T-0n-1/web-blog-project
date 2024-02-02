@@ -1,12 +1,18 @@
 <%- include("partials/header.ejs") %>
 <%- include("partials/navi.ejs") %>
 
-<div class="container mt-5">
-  <h1>Search Results</h1>
-  <% if ( postsList.every(post => post.hitsCount === 0) ) { %>
-    <p class="lead display-6">No results found.</p>
-  <% } else { %>
-    <% postsList.forEach(post => { %>
+<!-- Showing list of posts -->
+<div class="container max-height">
+  <div class="row align-items-center">
+    <div class="col-12 col-md-6 pe-5 d-none d-md-flex justify-content-center">
+      <img class="img-fluid rounded-circle" src="/images/logo4.png" alt="logo image" />
+    </div>
+    <div class="p-3 col-12 col-md-6">
+      <h1>Search Results</h1>
+        <% if ( postsList.every(post => post.hitsCount === 0) ) { %>
+      <p class="lead display-6">No results found.</p>
+        <% } else { %>
+        <% postsList.forEach(post => { %>
       <div class="mb-2">
         <p class="m-0 p-0 display-11 btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>" ><strong>Post title:&nbsp;<%= post.title %></strong></p>
         <p class="m-0 p-0">Words found in post: <%= post.hits.join(', ') %></p>
@@ -14,8 +20,10 @@
           <p class="m-0 p-0">Words not found in post: <%= post.misses.join(', ') %></p>
         <% } %>
       </div>
-    <% }) %>
-  <% } %>
+        <% }) %>
+        <% } %>
+    </div>
+  </div>
 </div>
 
 <%- include("partials/modal.ejs") %>
