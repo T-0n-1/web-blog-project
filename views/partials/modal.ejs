@@ -1,0 +1,66 @@
+<!-- Modal for showing post -->
+<% postsList.forEach(post => { %>
+    <div class="modal" id="postModal<%= post.id %>" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header bg-light">
+            <h1 class="modal-title fs-3" id="postModalLabel"><strong><%= post.title %></strong></h1>
+            <span class="border border-info rounded-circle p-1">views:&nbsp;<%= post.views %></span><br>
+            <p class="bg-light p-1"><%= post.date %>&nbsp;&nbsp;<%= post.time %></p>
+          </div>
+          <div class="modal-body">
+            <!-- Load post content dynamically here -->
+            <p class="display-10 lead"><%- post.content.replace(/\r\n/g, '<br>') %></p>
+            <p class="py-0 my-0 text-end">
+              <%= post.author %><br>
+              <% if (post.email != 'none') { %>
+                <%= post.email %>
+                <% } %>
+              </p>
+            </div>
+            <div class="modal-footer bg-light">
+              <button type="button" class="btn btn-outline-danger" id="deleteButton" onclick="deletePost(<%= post.id %>)" data-bs-dismiss="modal">Delete</button>
+              <% if (post.editable != 'off') { %>
+                <button type="button" class="btn btn-outline-info btn-edit" data-bs-toggle="modal" data-bs-target="#editModal<%= post.id %>" data-post-id="<%= post.id %>">Edit</button>
+                <% } %>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div> 
+        
+        <!-- Modal for editing post -->
+        <div class="modal" id="editModal<%= post.id %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true" data-bs-backdrop="static">
+          <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h1 class="modal-title fs-3" id="edittModalLabel"><strong><%= post.title %></strong></h1>
+          <span class="border border-info rounded-circle p-1">views:&nbsp;<%= post.views %></span><br>
+          <p class="bg-light p-1"><%= post.date %>&nbsp;&nbsp;<%= post.time %></p>
+        </div>
+        <div class="modal-body">
+          <!-- Load post content dynamically here -->
+          <form id="editPostForm<%= post.id %>" onsubmit="editPost(<%= post.id %>); return false;">
+            <div class="mb-3">
+              <label for="editContent<%= post.id %>" class="form-label">Edit Content</label>
+              <textarea class="form-control" id="editContent<%= post.id %>" name="content" rows="3"><%- post.content.replace(/\r\n/g, '<br>') %></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="editAuthor<%= post.id %>" class="form-label">Your Name</label>
+              <input type="text" class="form-control" id="editAuthor<%= post.id %>" name="author" value="<%= post.author %>" required>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="editCheckbox<%= post.id %>" name="editable" <% if (post.editable !== 'off') { %>checked<% } %>>
+              <label class="form-check-label" for="editCheckbox<%= post.id %>">Post editable afterwards</label>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="editPost(<%= post.id %>)">Save</button>
+          </form>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% }) %>
