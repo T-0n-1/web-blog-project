@@ -97,7 +97,7 @@ app.post('/search', async (req, res) => {
     // Read posts from JSON file
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
-    // Calculate hits per post
+    // Calculate hits per post for partial matches
     const postsList = postsArray.map(post => {
       const words = []
         .concat(post.title.split(regexPattern)
@@ -110,15 +110,12 @@ app.post('/search', async (req, res) => {
           .filter(word => word.trim() !== '')
           .map(word => word.toLowerCase()));
       const hits = [];
-      const misses = searchWords.filter(word => {
-        const foundOccurrences = words.filter(w => w === word).length;
-        if (foundOccurrences > 0) {
-          // Add the word to hits multiple times based on occurrences
-          for (let i = 0; i < foundOccurrences; i++) {
-            hits.push(word);
-          }
+      const misses = searchWords.filter(searchTerm => {
+        const found = words.some(word => word.includes(searchTerm));
+        if (found) {
+          hits.push(searchTerm);
         }
-        return foundOccurrences === 0;
+        return !found;
       });
       const noDuplicateHits = [...new Set(hits)];
       return {
@@ -145,6 +142,7 @@ app.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 app.post('/submit', async (req, res) => {
   req.body.date = getDate();
