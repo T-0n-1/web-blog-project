@@ -3,19 +3,21 @@
 
 <div class="container mt-5">
   <h1>Search Results</h1>
-  <% if ( results.every(result => result.hitsCount === 0) ) { %>
+  <% if ( postsList.every(post => post.hitsCount === 0) ) { %>
     <p class="lead display-6">No results found.</p>
   <% } else { %>
-    <% results.forEach(result => { %>
+    <% postsList.forEach(post => { %>
       <div class="mb-2">
-        <p class="m-0 p-0 display-11"><strong>Post title:&nbsp;<%= result.title %></strong></p>
-        <p class="m-0 p-0">Words found in post: <%= result.hits.join(', ') %></p>
-        <% if (result.missesCount !== 0) { %>
-          <p class="m-0 p-0">Words not found in post: <%= result.misses.join(', ') %></p>
+        <p class="m-0 p-0 display-11 btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>" ><strong>Post title:&nbsp;<%= post.title %></strong></p>
+        <p class="m-0 p-0">Words found in post: <%= post.hits.join(', ') %></p>
+        <% if (post.missesCount !== 0) { %>
+          <p class="m-0 p-0">Words not found in post: <%= post.misses.join(', ') %></p>
         <% } %>
       </div>
     <% }) %>
   <% } %>
 </div>
+
+<%- include("partials/modal.ejs") %>
 
 <%- include("partials/footer.ejs") %>

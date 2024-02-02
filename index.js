@@ -25,7 +25,6 @@ app.use((err, req, res, next) => {
 
 // ... (the rest of your Express setup)
 
-
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
@@ -99,7 +98,7 @@ app.post('/search', async (req, res) => {
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
     // Calculate hits per post
-    const results = postsArray.map(post => {
+    const postsList = postsArray.map(post => {
       const words = []
         .concat(post.title.split(regexPattern)
           .filter(word => word.trim() !== '')
@@ -129,12 +128,18 @@ app.post('/search', async (req, res) => {
         hitsCount: hits.length,
         misses: misses,
         missesCount: misses.length,
+        content: post.content,
+        date: post.date,
+        time: post.time,
+        author: post.author,
+        email: post.email,
+        editable: post.editable,
+        views: post.views,
       };
     });
     // Sort results by the number of hits (descending order)
-    results.sort((a, b) => b.hitsCount - a.hitsCount);
-    console.log(results);
-    res.render(path.join(__dirname, 'views/results.ejs'), { results });
+    postsList.sort((a, b) => b.hitsCount - a.hitsCount);
+    res.render(path.join(__dirname, 'views/results.ejs'), { postsList });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
