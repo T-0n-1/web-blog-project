@@ -1,4 +1,4 @@
-// server.js
+// Imports
 import express from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -6,32 +6,32 @@ import bodyParser from 'body-parser';
 import fs from 'fs/promises'; // Use fs.promises for async file operations
 import path from 'path';
 
+// Constants
 const app = express();
 const port = 3000;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const postsFilePath = path.join(__dirname, 'posts.json');
 
+// Middleware
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// ... (your existing code)
-
-// Add a custom error-handling middleware
+// Custom error-handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
 
-// ... (the rest of your Express setup)
-
+// View engine setup
 app.set('view engine', 'ejs');
 
+// Routes
 app.get('/', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
 app.get('/home', (req, res) => res.render(path.join(__dirname, 'views/index.ejs')));
 app.get('/newpost', (req, res) => res.render(path.join(__dirname, 'views/newpost.ejs')));
 app.get('/search', (req, res) => res.render('results.ejs', { results: [] })); // Pass an empty array initially
 
+// Route for browsing posts
 app.get('/browse', async (req, res) => {
   try {
     // Use fs.promises.readFile for async file reading
@@ -56,6 +56,7 @@ app.get('/browse', async (req, res) => {
   }
 });
 
+// Route for getting post content by ID
 app.get('/getPostContent/:id', async (req, res) => {
   const postId = parseInt(req.params.id);
   try {
@@ -87,6 +88,7 @@ app.get('/getPostContent/:id', async (req, res) => {
   }
 });
 
+// Route for searching posts
 app.post('/search', async (req, res) => {
   try {
     const userInput = req.body.userInput;
@@ -143,7 +145,7 @@ app.post('/search', async (req, res) => {
   }
 });
 
-
+// Route for submitting a new post
 app.post('/submit', async (req, res) => {
   req.body.date = getDate();
   try {
@@ -177,6 +179,7 @@ app.post('/submit', async (req, res) => {
   }
 });
 
+// Route for deleting a post
 app.delete('/deletePost/:id', async (req, res) => {
     const postId = parseInt(req.params.id);
     try {
@@ -202,6 +205,7 @@ app.delete('/deletePost/:id', async (req, res) => {
     }
   });
 
+// Route for updating the views count
 app.put('/updateViews/:id', async (req, res) => {
     const postId = parseInt(req.params.id);
     try {
@@ -224,6 +228,7 @@ app.put('/updateViews/:id', async (req, res) => {
     }
   });
 
+// Route for editing a post
 app.put('/editPost/:id', async (req, res) => {
   const postId = parseInt(req.params.id);
   const { content, author, editable } = req.body;
@@ -247,9 +252,15 @@ app.put('/editPost/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-  
+
+// Start the server
 app.listen(port, () => console.log(`App listening on port ${port}.`));
 
+/**
+ * 
+ * @returns {string} - A formatted date string
+ 
+ */
 function getDate() {
   const isoString = new Date().toISOString();
   const dateObject = new Date(isoString);
