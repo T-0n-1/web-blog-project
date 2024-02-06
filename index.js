@@ -111,13 +111,10 @@ app.post('/search', async (req, res) => {
     const postsArray = JSON.parse(postsData);
     // Filter posts based on year and/or month
     let filteredPosts = postsArray;
-    console.log(filteredPosts);
     if (year && month) {
       // Filter by both year and month
       filteredPosts = filteredPosts.filter(post => {
         const [postDay, postMonth, postYear] = (post.date).split('.');
-        console.log(postMonth, postYear);
-        console.log(month, year);
         return parseInt(postYear) == year && parseInt(postMonth) == month;
       });
     } else if (year) {

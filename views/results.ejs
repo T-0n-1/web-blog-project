@@ -9,13 +9,15 @@
     </div>
     <div class="p-3 col-12 col-md-6">
       <h1>Search Results</h1>
-        <% if ( postsList.every(post => post.hitsCount === 0) ) { %>
+        <% if (postsList.length === 0) { %>
       <p class="lead display-6">No results found.</p>
         <% } else { %>
         <% postsList.forEach(post => { %>
       <div class="mb-2">
         <p class="m-0 p-0 display-11 btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>" ><strong>Post title:&nbsp;<%= post.title %></strong></p>
-        <p class="m-0 p-0">Words found in post: <%= post.hits.join(', ') %></p>
+        <% if (post.hitsCount !== 0) { %>
+          <p class="m-0 p-0">Words not found in post: <%= post.hits.join(', ') %></p>
+        <% } %>
         <% if (post.missesCount !== 0) { %>
           <p class="m-0 p-0">Words not found in post: <%= post.misses.join(', ') %></p>
         <% } %>
