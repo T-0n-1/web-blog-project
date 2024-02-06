@@ -8,6 +8,17 @@
     "author": "ToniM",
     "email": "t.mertanen@hotmail.com",
     "editable": "off",
-    "views": 41
+    "views": 43
+  },
+  {
+    "id": 2,
+    "date": "06.02.2024",
+    "time": "03:10",
+    "title": "How To Use Search",
+    "content": "HOW TO USE SEARCH\r\nTo search for specific blog posts, you can use various search parameters to refine your results. Here's how:\r\n\r\nKeyword Search: \r\n      Enter one or more keywords related to the topic you're interested in. For example, if you're looking for posts about \"JavaScript programming,\" simply type \"JavaScript programming\" into the search box.\r\n\r\nPartial Matches: \r\n      You can also search for partial matches of words. For example, entering \"cat\" will find posts containing \"cat,\" \"catalog,\" \"category,\" etc.\r\n\r\nDate Search: \r\n      You can search for posts published in a specific year or month. To search for posts published in a specific year, enter the year followed by :: - that is two colon characters. For example, to search for posts from the year 2024, type 2024:: in the search box.\r\n      To search for posts published in a specific month and year, enter both the month and year separated by ::. For example, to search for posts from January 2024, type 2024::01 in the search box.\r\n      If you want to search for posts from a specific month regardless of the year, simply enter the month in the format ::month. For example, to search for posts from January, type ::01.\r\n\r\nCombining Keywords and Dates: \r\n      You can combine keyword searches with date searches to narrow down your results further. For example, to find posts about \"JavaScript programming\" published in January 2024, type 2024::01 JavaScript programming in the search box.\r\n\r\nAfter entering your search query, press Enter or click the search button to see the results.",
+    "author": "ToniM",
+    "email": "t.mertanen@hotmail.com",
+    "editable": "off",
+    "views": 1
   }
 ]
