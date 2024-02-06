@@ -7,12 +7,13 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/T-0n-1/web-blog-project.git"
   },
+  "keywords": ["web", "blog", "node.js", "express"],
   "author": "Toni Mertanen",
   "license": "ISC",
   "bugs": {
