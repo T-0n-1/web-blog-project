@@ -1,3 +1,27 @@
+document.addEventListener('DOMContentLoaded', function () {
+  const postTitles = document.querySelectorAll('[data-bs-toggle="modal"]');  
+  postTitles.forEach(title => {
+    title.addEventListener('click', async function () {
+      const postId = this.getAttribute('data-post-id');
+      try {
+        // Send a request to the server to increment the views count in the JSON file
+        const response = await fetch(`/updateViews/${postId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to increment views: ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error(error);
+        // Handle errors as needed
+      }
+    });
+  });
+});
+
 async function deletePost(id) {
   const postId = id;
   const userDecision = confirm('Do you want to delete post?');
@@ -27,30 +51,6 @@ async function deletePost(id) {
       } 
     } 
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  const postTitles = document.querySelectorAll('[data-bs-toggle="modal"]');  
-  postTitles.forEach(title => {
-    title.addEventListener('click', async function () {
-      const postId = this.getAttribute('data-post-id');
-      try {
-        // Send a request to the server to increment the views count in the JSON file
-        const response = await fetch(`/updateViews/${postId}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`Failed to increment views: ${response.statusText}`);
-        }
-      } catch (error) {
-        console.error(error);
-        // Handle errors as needed
-      }
-    });
-  });
-});
 
 function editPost(postId) {
   const editContent = document.getElementById(`editContent${postId}`).value;

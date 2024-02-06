@@ -91,16 +91,50 @@ app.get('/getPostContent/:id', async (req, res) => {
 // Route for searching posts
 app.post('/search', async (req, res) => {
   try {
-    const userInput = req.body.userInput;
+    let userInput = req.body.userInput;
+    // Extract year month and searchWords from the userInput
     const regexPattern = /[\s,]+/;
-    const searchWords = userInput.split(regexPattern)
+    const splittedUserInput = userInput.split(regexPattern)
                         .filter(word => word.trim() !== '')
                         .map(word => word.toLowerCase());
+    const searchWords = splittedUserInput.filter(word => !word.includes('::'));
+    const searchDate = splittedUserInput.find(word => word.includes('::'));
+    let year;
+    let month;
+    if (searchDate) {
+      const [yearStr, monthStr] = searchDate.split('::');
+      if (yearStr.length > 0) year = parseInt(yearStr); 
+      if (monthStr.length > 0) month = monthStr.padStart(2, '0');
+    }
     // Read posts from JSON file
     const postsData = await fs.readFile(postsFilePath, 'utf-8');
     const postsArray = JSON.parse(postsData);
+    // Filter posts based on year and/or month
+    let filteredPosts = postsArray;
+    console.log(filteredPosts);
+    if (year && month) {
+      // Filter by both year and month
+      filteredPosts = filteredPosts.filter(post => {
+        const [postDay, postMonth, postYear] = (post.date).split('.');
+        console.log(postMonth, postYear);
+        console.log(month, year);
+        return parseInt(postYear) == year && parseInt(postMonth) == month;
+      });
+    } else if (year) {
+      // Filter by year only
+      filteredPosts = filteredPosts.filter(post => {
+        const [postDay, postMonth, postYear] = (post.date).split('.');
+        return postYear == year;
+      });
+    } else if (month) {
+      // Filter by month only
+      filteredPosts = filteredPosts.filter(post => {
+        const [postDay, postMonth, postYear] = (post.date).split('.');
+        return postMonth == month;
+      });
+    }
     // Calculate hits per post for partial matches
-    const postsList = postsArray.map(post => {
+    const postsList = filteredPosts.map(post => {
       const words = []
         .concat(post.title.split(regexPattern)
           .filter(word => word.trim() !== '')
@@ -144,6 +178,7 @@ app.post('/search', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Route for submitting a new post
 app.post('/submit', async (req, res) => {
