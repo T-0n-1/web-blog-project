@@ -1,6 +1,6 @@
 # Web Blog Post
 
-Web Blog Post is a simple web application for reading, writing, editing, and deleting blog posts. Built using Node.js and Express, this application offers the following features:
+Web Blog Post is a simple web application for reading, writing, editing, and deleting blog posts. Application is built using Node.js and Express. 
 
 ## Table of Contents
 
@@ -30,7 +30,7 @@ Feel free to explore and contribute to the project!
 
 3. **View Post Content:** Clicking on a post title reveals the full content of the post in a modal, providing an immersive reading experience.
 
-4. **Search Functionality:** Users can search for specific words or topics within the posts. Users can also use year and/or month to search posts or narrow search made with search word(s). The application performs partial matching on titles, content, and author names. You can search for posts published in a specific year and/or month. You can also narrow down the search using date and search word(s).
+4. **Search Functionality:** Users can search for specific words or topics within the posts. Users can also use year and/or month to search posts or narrow down search made with search word(s). The application can perform partial matching on titles, content, and author names.
 
 5. **Edit Existing Posts:** If enabled during post creation, users can edit the content of their posts, updating the text and indicating the edit in the author's name.
 
