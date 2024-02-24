@@ -14,16 +14,14 @@
         <% } else { %>
         <% postsList.forEach(post => { %>
       <div class="mb-2">
-        <p class="m-0 p-0 display-11 btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>" ><strong>Post title:&nbsp;<%= post.title %></strong></p>
         <% if (post.hitsCount !== 0) { %>
+          <p class="m-0 p-0 display-11 btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>" ><strong>Post title:&nbsp;<%= post.title %></strong></p>
           <p class="m-0 p-0">Post written: <%= post.date %></p>
           <p class="m-0 p-0">Words found in post: <%= post.hits.join(', ') %></p>
-        <% } else { %>
-          <p class="m-0 p-0">Post written: <%= post.date %></p>
-          <% } %>
-        <% if (post.missesCount !== 0) { %>
+          <% if (post.missesCount !== 0) { %>
           <p class="m-0 p-0">Words not found in post: <%= post.misses.join(', ') %></p>
-        <% } %>
+          <% } %>
+          <% } %>
       </div>
         <% }) %>
         <% } %>
