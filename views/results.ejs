@@ -12,7 +12,7 @@
       <% let postFound = false; %>
       <div class="mb-2">
         <% postsList.forEach(post => { %>
-        <% if ( post.hitsCount !== 0 || (post.hitsCount !== 0 && post.filteredBy) || (post.hitsCount == 0 && post.missesCount == 0 && post.filteredBy) ) { %>
+        <% if ( post.hitsCount !== 0 || (post.hitsCount !== 0 && post.filteredBy) || (post.hitsCount == 0 && post.filteredBy) ) { %>
           <% postFound = true; %>
           <p class="m-0 p-0 display-11 btn d-flex" data-bs-toggle="modal" data-bs-target="#postModal<%= post.id %>" data-post-id="<%= post.id %>" ><strong>Post title:&nbsp;<%= post.title %></strong></p>
           <p class="m-0 p-0">Post written: <%= post.date %></p>
