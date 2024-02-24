@@ -116,19 +116,19 @@ app.post('/search', async (req, res) => {
       filteredPosts = filteredPosts.filter(post => {
         const [postDay, postMonth, postYear] = (post.date).split('.');
         return parseInt(postYear) == year && parseInt(postMonth) == month;
-      });
+      }).map(post => ({ ...post, filteredBy: 'year and month' }));
     } else if (year) {
       // Filter by year only
       filteredPosts = filteredPosts.filter(post => {
         const [postDay, postMonth, postYear] = (post.date).split('.');
         return postYear == year;
-      });
+      }).map(post => ({ ...post, filteredBy: 'year' }));
     } else if (month) {
       // Filter by month only
       filteredPosts = filteredPosts.filter(post => {
         const [postDay, postMonth, postYear] = (post.date).split('.');
         return postMonth == month;
-      });
+      }).map(post => ({ ...post, filteredBy: 'month' }));
     }
     // Calculate hits per post for partial matches
     const postsList = filteredPosts.map(post => {
@@ -165,6 +165,7 @@ app.post('/search', async (req, res) => {
         email: post.email,
         editable: post.editable,
         views: post.views,
+        filteredBy: post.filteredBy
       };
     });
     // Sort results by the number of hits (descending order)
